@@ -221,94 +221,45 @@ def chores_assigner():
         print(student, chores.pop())
 
 
-def deal(deck):
-    from random import shuffle
-
-    deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] * 4
-
-    hand = []
-    for i in range(2):
-        random.shuffle(deck)
-        card = deck.pop()
-        if card == 11: card = "J"
-        if card == 12: card = "Q"
-        if card == 13: card = "K"
-        if card == 14: card = "A"
-        hand.append(card)
-    return hand
-
-
-def play_again():
-    again = input("Do you want to play again? (Y/N) : ").strip().lower()
-    if again == "y":
-        dealer_hand = []
-        player_hand = []
-        deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] * 4
-        game()
-    else:
-        print("Bye!")
-    exit()
-
-
-def blackjack(dealer_hand, player_hand):
-    if total(player_hand) == 21:
-        print_results(dealer_hand, player_hand)
-        print("Congratulations! You got a Blackjack!\n")
-        play_again()
-    elif total(dealer_hand) == 21:
-        print_results(dealer_hand, player_hand)
-        print("Sorry, you lose. The dealer got a blackjack.\n")
-        play_again()
-
-
-def score(dealer_hand, player_hand):
-    if total(player_hand) == 21:
-        print_results(dealer_hand, player_hand)
-        print("Congratulations! You got a Blackjack!\n")
-    elif total(dealer_hand) == 21:
-        print_results(dealer_hand, player_hand)
-        print("Sorry, you lose. The dealer got a blackjack.\n")
-    elif total(player_hand) > 21:
-        print_results(dealer_hand, player_hand)
-        print("Sorry. You busted. You lose.\n")
-    elif total(dealer_hand) > 21:
-        print_results(dealer_hand, player_hand)
-        print("Dealer busts. You win!\n")
-    elif total(player_hand) < total(dealer_hand):
-        print_results(dealer_hand, player_hand)
-        print("Sorry. Your score isn't higher than the dealer. You lose my guy!!\n")
-    elif total(player_hand) > total(dealer_hand):
-        print_results(dealer_hand, player_hand)
-        print('Congratulations. Your score is higher than the dealer. You win my guy!!\n')
-
-
 def black_jack():
-    choice = 0
-    clear()
-    print("Welcome to Danny's BlackJack!!!!\n")
-    dealer_hand = deal(deck)
-    player_hand = deal(deck)
-    while choice != "q":
-        print("The dealer is showing a " + str(dealer_hand[0])
-        print("You have a " + str(player_hand) + " for a total of " + str(
-            total(player_hand))
-        blackjack(dealer_hand, player_hand)
-        choice = input("Do you want to [H]it, [S]tand, or [Q]uit: ").lower()
-        clear()
-        if choice == "h":
-            hit(player_hand)
-            while total(dealer_hand) < 17:
-                hit(dealer_hand)
-            score(dealer_hand, player_hand)
-            play_again()
-        elif choice == "s":
-            while total(dealer_hand) < 17:
-                hit(dealer_hand)
-            score(dealer_hand, player_hand)
-            play_again()
-        elif choice == "q":
-            print("Bye!")
-    exit()
+    from random import shuffle
+    deck = [
+        2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7,
+        8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11
+    ]
+    shuffle(deck)
+    blackjack_deck = []
+    dealer_deck = []
+    total = 0
+    while True:
+        blackjack_deck.append(deck.pop())
+        dealer_deck.append(deck.pop())
+        blackjack_deck.append(deck.pop())
+        dealer_deck.append(deck.pop())
+        while True:
+            print('Your hand:', blackjack_deck)
+            print('Dealer top card:', dealer_deck[0])
+            choice = input('would you like to hit or stay????')
+            if choice == 'hit':
+                blackjack_deck.append(deck.pop())
+            if choice == 'stay':
+                break
+
+    while sum(blackjack_deck) < 22 and sum(dealer_deck) < 22:
+        if sum(dealer_deck) < 17:
+            dealers_deck.append(deck.pop())
+            print('Dealer Hits.')
+        elif sum(dealer_deck) >= 17:
+            print('Dealer Stays')
+            break
+
+    if score_of(dealer_deck) <= score_of(blackjack_deck):
+        print('The Dealer Wins!!!!')
+    else:
+        print('Player wins!!!')
+
+    deck.extend(blackjack_deck)
+    blackjack_deck.clear()
 
 
 def hey_you():
