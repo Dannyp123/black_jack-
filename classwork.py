@@ -1,5 +1,6 @@
 from random import randint
 from pprint import pprint
+from random import shuffle
 
 
 def huuuh_sonny():
@@ -222,48 +223,85 @@ def chores_assigner():
 
 
 def black_jack():
-    from random import shuffle
+
     deck = [
         2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7,
         8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11
     ]
     shuffle(deck)
-    blackjack_deck = []
-    dealer_deck = []
-    total = 0
-    while True:
-        blackjack_deck.append(deck.pop())
-        dealer_deck.append(deck.pop())
-        blackjack_deck.append(deck.pop())
-        dealer_deck.append(deck.pop())
-        while True:
-            print('Your hand:', blackjack_deck)
-            print('Dealer top card:', dealer_deck[0])
-            choice = input('would you like to hit or stay????')
-            if choice == 'hit':
-                blackjack_deck.append(deck.pop())
-            if choice == 'stay':
+    # deck = []
+
+    # for _suit in range(4):
+    #     for i in range(2, 11):
+    #         deck.append(i)
+    #     for _facecard in range(3):
+    #         deck.append(10)
+    # deck.append('Ace')
+
+    dealer_cards = []
+
+    player_cards = []
+
+    while len(dealer_cards) != 2:
+        dealer_cards.append(deck.pop())
+        dealer_cards.append(deck.pop())
+
+        if len(dealer_cards) == 2:
+            print('The Dealer has: ', dealer_cards, sum(dealer_cards))
+
+    while len(player_cards) != 2:
+        player_cards.append(deck.pop())
+        player_cards.append(deck.pop())
+
+        if len(player_cards) == 2:
+            print('You Have: ', player_cards, sum(player_cards))
+
+    if sum(dealer_cards) == 21:
+        print('The Dealer has reached 21 and wins the game!!')
+        return
+
+    elif sum(dealer_cards) > 21:
+        print('The Dealer has busted and loses the game!!')
+
+    while sum(player_cards) < 21:
+        responce = input('Would you like to hit or stay??').strip().lower()
+
+        while sum(dealer_cards) <= 17:
+            dealer_cards.append(deck.pop())
+
+            if sum(dealer_cards) > 21:
+                print('The dealer BUSTED... You win!!!')
+                return
+
+        if responce == 'hit':
+            player_cards.append(deck.pop())
+            print('You now have a total of {} from these cards: {}'.format(
+                str(sum(player_cards)), str(player_cards)))
+        else:
+            print('The dealer has a total of {} from these cards: {}'.format(
+                str(sum(dealer_cards)), str(dealer_cards)))
+
+            print('You have a total of {} from these cards {}'.format(
+                str(sum(player_cards)), str(player_cards)))
+
+            if sum(dealer_cards) > sum(player_cards):
+                print('Dealer Wins!!')
+            else:
+                print('You Win!!!')
                 break
 
-    while sum(blackjack_deck) < 22 and sum(dealer_deck) < 22:
-        if sum(dealer_deck) < 17:
-            dealers_deck.append(deck.pop())
-            print('Dealer Hits.')
-        elif sum(dealer_deck) >= 17:
-            print('Dealer Stays')
-            break
+    if sum(player_cards) == 21:
+        print('You have 21!!....You win Black Jack!!')
 
-    if score_of(dealer_deck) <= score_of(blackjack_deck):
-        print('The Dealer Wins!!!!')
-    else:
-        print('Player wins!!!')
+    if sum(player_cards) > 21:
+        print('You BUSTED....The dealer wins!!!')
 
-    deck.extend(blackjack_deck)
-    blackjack_deck.clear()
+    elif sum(dealer_cards) == 21:
+        print('The Dealer has 21.... The dealer wins Black Jack!!')
 
 
 def hey_you():
-    name = input('What is your name sir/mam??')
+    name = input('What is your name??')
     print('Whats up, ' + name)
 
 
