@@ -56,7 +56,7 @@ def what_you_doin():
             print('\nI was in the graduated class 0f 2017')
         if name == 'daniel peterson':
             print('\nI am a current student, and is gonna be the best!!!!')
-        if name == 'cody vander poel':
+        if name == 'cody van der poel':
             print('\nI am a current student and I am from Charleston.')
         elif name == 'done':
             break
@@ -190,9 +190,6 @@ def two_player_war():
             rt_cards = Rays_hand.pop()
 
             treasure_cards.append(rt_cards)
-        # print('D:', Daniels_hand, Daniels_pile)
-        # print('R:', Rays_hand, Rays_pile)
-        # print('T:', treasure_cards)
 
 
 def chores_assigner():
@@ -222,25 +219,31 @@ def chores_assigner():
         print(student, chores.pop())
 
 
-def black_jack():
+def black_jack_deck():
+    
+    return d
 
-    deck = [
-        2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7,
-        8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11
+
+def black_jack():
+    deck = d = [
+        1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6,
+        7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11
     ]
     shuffle(deck)
-    # deck = []
 
-    # for _suit in range(4):
-    #     for i in range(2, 11):
-    #         deck.append(i)
-    #     for _facecard in range(3):
-    #         deck.append(10)
-    # deck.append('Ace')
 
     dealer_cards = []
 
     player_cards = []
+
+    while True:
+        print('\n-*-*-*-*-Welcome to Black Jack-*-*-*-*-')
+        print()
+        welcome = input('\tHit Enter to continue\n').strip()
+        if welcome == 'Enter':
+            continue
+        else:
+            break
 
     while len(dealer_cards) != 2:
         dealer_cards.append(deck.pop())
@@ -288,16 +291,19 @@ def black_jack():
                 print('Dealer Wins!!')
             else:
                 print('You Win!!!')
-                break
+            break
+
+    if sum(player_cards) == 21 and sum(dealer_cards) == 21:
+        print('Its a tie.... ')
 
     if sum(player_cards) == 21:
-        print('You have 21!!....You win Black Jack!!')
+        print('You have 21!!....You won Black Jack!!')
 
     if sum(player_cards) > 21:
         print('You BUSTED....The dealer wins!!!')
 
     elif sum(dealer_cards) == 21:
-        print('The Dealer has 21.... The dealer wins Black Jack!!')
+        print('The Dealer has 21.... The dealer won Black Jack!!')
 
 
 def hey_you():
