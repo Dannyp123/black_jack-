@@ -219,18 +219,45 @@ def chores_assigner():
         print(student, chores.pop())
 
 
-def black_jack_deck():
-    
-    return d
+def card_score(card):
+    if isinstance(card, int):
+        return card
+    elif card == 'J':
+        card = 10
+    elif card == 'Q':
+        card = 10
+    elif card == 'K':
+        card = 10
+    elif card == 'A':
+        card = 11
+    return card
+
+
+def hand_score(hand):
+    ''' list -> int
+
+    >>> hand_score([2, 3, 4])
+    9
+    >>> hand_score(['K', 'Q'])
+    20
+    >>> hand_score(['A', 9])
+    20
+    '''
+    total = 0
+    for card in hand:
+        total = total + card_score(card)
+    return total
 
 
 def black_jack():
-    deck = d = [
-        1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6,
-        7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11
+    deck = [
+        2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7,
+        8, 8, 8, 8, 9, 9, 9, 9, 'J', 'Q', 'K', 'A'
     ]
-    shuffle(deck)
 
+    new_deck = []
+
+    shuffle(deck)
 
     dealer_cards = []
 
@@ -250,59 +277,59 @@ def black_jack():
         dealer_cards.append(deck.pop())
 
         if len(dealer_cards) == 2:
-            print('The Dealer has: ', dealer_cards, sum(dealer_cards))
+            print('The Dealer has: ', dealer_cards, (hand_score(dealer_cards)))
 
     while len(player_cards) != 2:
         player_cards.append(deck.pop())
         player_cards.append(deck.pop())
 
         if len(player_cards) == 2:
-            print('You Have: ', player_cards, sum(player_cards))
+            print('You Have: ', player_cards, hand_score(player_cards))
 
-    if sum(dealer_cards) == 21:
+    if hand_score(dealer_cards) == 21:
         print('The Dealer has reached 21 and wins the game!!')
         return
 
-    elif sum(dealer_cards) > 21:
+    elif hand_score(dealer_cards) > 21:
         print('The Dealer has busted and loses the game!!')
 
-    while sum(player_cards) < 21:
+    while hand_score(player_cards) < 21:
         responce = input('Would you like to hit or stay??').strip().lower()
 
-        while sum(dealer_cards) <= 17:
+        while hand_score(dealer_cards) <= 18:
             dealer_cards.append(deck.pop())
 
-            if sum(dealer_cards) > 21:
+            if hand_score(dealer_cards) > 21:
                 print('The dealer BUSTED... You win!!!')
                 return
 
         if responce == 'hit':
             player_cards.append(deck.pop())
             print('You now have a total of {} from these cards: {}'.format(
-                str(sum(player_cards)), str(player_cards)))
+                str(hand_score(player_cards)), str(player_cards)))
         else:
             print('The dealer has a total of {} from these cards: {}'.format(
-                str(sum(dealer_cards)), str(dealer_cards)))
+                str(hand_score(dealer_cards)), str(dealer_cards)))
 
             print('You have a total of {} from these cards {}'.format(
-                str(sum(player_cards)), str(player_cards)))
+                str(hand_score(player_cards)), str(player_cards)))
 
-            if sum(dealer_cards) > sum(player_cards):
+            if hand_score(dealer_cards) > hand_score(player_cards):
                 print('Dealer Wins!!')
             else:
                 print('You Win!!!')
             break
 
-    if sum(player_cards) == 21 and sum(dealer_cards) == 21:
+    if hand_score(player_cards) == 21 and hand_score(dealer_cards) == 21:
         print('Its a tie.... ')
 
-    if sum(player_cards) == 21:
+    if hand_score(player_cards) == 21:
         print('You have 21!!....You won Black Jack!!')
 
-    if sum(player_cards) > 21:
+    if hand_score(player_cards) > 21:
         print('You BUSTED....The dealer wins!!!')
 
-    elif sum(dealer_cards) == 21:
+    elif hand_score(dealer_cards) == 21:
         print('The Dealer has 21.... The dealer won Black Jack!!')
 
 
@@ -312,7 +339,10 @@ def hey_you():
 
 
 def main():
-    black_jack()
+    while True:
+        black_jack()
+        input('\nWould you like to play again??? hit Enter to play again.')
+
     # hey_you()
     # what_you_doin()
     # grader()
