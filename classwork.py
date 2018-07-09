@@ -313,22 +313,24 @@ def black_jack():
 
             print('You have a total of {} from these cards {}'.format(
                 str(hand_score(player_cards)), str(player_cards)))
-
-            if hand_score(dealer_cards) > hand_score(player_cards):
-                print('Dealer Wins!!')
-            else:
-                print('You Win!!!')
             break
 
-    if hand_score(player_cards) == 21 and hand_score(dealer_cards) == 21:
+    if hand_score(player_cards) == hand_score(dealer_cards):
         print('Its a tie....The dealer Wins!!!')
+        
+    elif hand_score(player_cards) > 21:
+        print('You BUSTED....The dealer wins!!!')
+
+    elif hand_score(player_cards) < hand_score(dealer_cards):
+        print('The dealer Wins!!!')
+
+    elif hand_score(player_cards) > hand_score(dealer_cards):
+        print('You Win!!!')
 
     elif hand_score(player_cards) == 21:
         print('You have 21!!....You won Black Jack!!')
 
-    elif hand_score(player_cards) > 21:
-        print('You BUSTED....The dealer wins!!!')
-
+    
     elif hand_score(dealer_cards) == 21:
         print('The Dealer has 21.... The dealer won Black Jack!!')
 
