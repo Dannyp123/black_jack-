@@ -277,7 +277,7 @@ def black_jack():
         dealer_cards.append(deck.pop())
 
         if len(dealer_cards) == 2:
-            print('The Dealer has: ', dealer_cards, (hand_score(dealer_cards)))
+            print('The Dealer has: __ , ', dealer_cards[1])
 
     while len(player_cards) != 2:
         player_cards.append(deck.pop())
@@ -321,12 +321,12 @@ def black_jack():
             break
 
     if hand_score(player_cards) == 21 and hand_score(dealer_cards) == 21:
-        print('Its a tie.... ')
+        print('Its a tie....The dealer Wins!!!')
 
-    if hand_score(player_cards) == 21:
+    elif hand_score(player_cards) == 21:
         print('You have 21!!....You won Black Jack!!')
 
-    if hand_score(player_cards) > 21:
+    elif hand_score(player_cards) > 21:
         print('You BUSTED....The dealer wins!!!')
 
     elif hand_score(dealer_cards) == 21:
@@ -341,7 +341,9 @@ def hey_you():
 def main():
     while True:
         black_jack()
-        input('\nWould you like to play again??? hit Enter to play again.')
+        input(
+            '\n    Would you like to play again???\n\tHit Enter to play again.'
+        )
 
     # hey_you()
     # what_you_doin()
